@@ -7,3 +7,13 @@ vluzC = vLuzM * 100; //Velocidade da Luz em cm/s
 vLuzNC = vluzC * (1/1000000000); //Velocidade da Luz em cm/ns
 $("#main").append("<br>");
 $("#main").append(vLuzNC);
+
+//Testando Variaveis
+var awesomeToughts = "Im Neli and I am AWESOME!"
+
+//console.log(awesomeToughts); //Imprime no Console
+
+//String.replace
+var funToughts = awesomeToughts.replace("AWESOME", "FUN");
+
+console.log(funToughts);
