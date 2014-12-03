@@ -19,14 +19,14 @@ var work = {
 	"jobs":[
 	{
 		"employer": "Pink Floyd",
-		"title": ["Vocals", "guitar"],
+		"title": "Guitar and vocals",
 		"city": "London",
 		"dates": [1965, 1968],
 		"description": "Foi vocalista, guitarrista e compositor do Pink Floyd"
 	},
 	{
 		"employer": "Autoral",
-		"title": ["Vocals", "guitar"],
+		"title": "Guitar and vocals",
 		"city" : "Cambridge",
 		"dates": [1968, 1972],
 		"description": "Carreira solo"
@@ -97,18 +97,7 @@ var twitter = HTMLtwitter.replace("%data%", bio.contact.twitter);
 var loc = HTMLlocation.replace("%data%", bio.contact.location);
 var picURL = HTMLbioPic.replace("%data%",bio.picURL);
 var welcome = HTMLWelcomeMsg.replace("%data%",bio.welcomeMsg);
-var skills = HTMLskills.replace("%data%",bio.skills);
-
-//Work
-//var job = HTMLworkTitle.replace("%data%", work.job);
-//var employer = HTMLworkEmployer.replace("%data%", work.employer);
-//var workYears = HTMLworkDates.replace("%data%",work.years);
-//var workCity = HTMLworkLocation.replace("%data%", work.city);
-
-//Education
-//var school = HTMLschoolName.replace("%data%", education["school"]);
-//var eduYears = HTMLschoolDates.replace("%data%", education["years"]);
-//var eduCity = HTMLschoolLocation.replace("%data%", education["city"]);
+var skills;
 
 //Bio Append
 $("#header").append(name);
@@ -120,15 +109,28 @@ $("#header").append(twitter);
 $("#header").append(loc);
 $("#header").append(picURL);
 $("#header").append(welcome);
-$("#header").append(skills);
+if(bio.skills.length > 0){
+	$("#header").append(HTMLskillsStart);
+	for(s in bio.skills){
+		skills = HTMLskills.replace("%data%",bio.skills[s]);
+		$("#skills").append(skills);
+	}
+}
+
 
 //Work Append
-//("#main").append(job);
-//$("#main").append(employer);
-//$("#main").append(workYears);
-//$("#main").append(workCity);
+for(j in work.jobs){
+	$("#workExperience").append(HTMLworkStart);
+	var employer = HTMLworkEmployer.replace("%data%",work.jobs[j].employer);
+	var title = HTMLworkTitle.replace("%data%",work.jobs[j].title);
+	var dates = HTMLworkDates.replace("%data%",work.jobs[j].dates);
+	var loc = HTMLworkLocation.replace("%data%",work.jobs[j].city);
+	var desc = HTMLworkDescription.replace("%data%",work.jobs[j].description);
 
-//Education Append
-//$("#main").append(school);
-//$("#main").append(eduYears);
-//$("#main").append(eduCity);
+
+	var workFinal = employer + title + dates + loc + desc;
+
+	
+
+	$(".work-entry:last").append(workFinal);
+}
