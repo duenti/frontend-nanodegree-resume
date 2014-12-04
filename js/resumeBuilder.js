@@ -1,3 +1,46 @@
+$(document).click(function(loc) {
+  var x = loc.pageX;
+  var y = loc.pageY;
+
+  logClicks(x,y);
+});
+
+function displayWork(){
+	//Work Append
+	for(j in work.jobs){
+		$("#workExperience").append(HTMLworkStart);
+		var employer = HTMLworkEmployer.replace("%data%",work.jobs[j].employer);
+		var title = HTMLworkTitle.replace("%data%",work.jobs[j].title);
+		var dates = HTMLworkDates.replace("%data%",work.jobs[j].dates);
+		var loc = HTMLworkLocation.replace("%data%",work.jobs[j].city);
+		var desc = HTMLworkDescription.replace("%data%",work.jobs[j].description);
+
+
+		var workFinal = employer + title + dates + loc + desc;
+
+		
+
+		$(".work-entry:last").append(workFinal);
+	}
+}
+
+function inName(text){
+	//Remover tags
+	var div = document.createElement("div");
+	div.innerHTML = text;
+	var name = div.textContent || div.innerText || "";
+
+
+	//Manipular String
+	name = name.split(" ");
+	var fName = name[0];
+	var lName = name[1];
+	fName = fName[0]. toUpperCase() + fName.slice(1).toLowerCase();
+	lName = lName.toUpperCase();
+
+	return fName + " " + lName;
+}
+
 //Objeto Biografia
 var bio = {
 	"name" 		: "Syd Barrett",
@@ -87,6 +130,23 @@ var project = {
 	]
 }
 
+//Função diplay do objeto project
+project.display = function(){
+	for(p in project.projects){
+		$("#projects").append(HTMLprojectStart);
+
+		var title = HTMLprojectTitle.replace("%data%", project.projects[p].title);
+		var dates = HTMLprojectDates.replace("%data%", project.projects[p].date);
+		var descr = HTMLprojectDescription.replace("%data%", project.projects[p].description);
+		var image = HTMLprojectImage.replace("%data%", project.projects[p].image);
+
+		$(".project-entry:last").append(title);
+		$(".project-entry:last").append(dates);
+		$(".project-entry:last").append(descr);
+		$(".project-entry:last").append(image);
+	}
+}
+
 //Bio
 var name = HTMLheaderName.replace("%data%", bio.name);
 var role = HTMLheaderRole.replace("%data%", bio.role);
@@ -117,20 +177,8 @@ if(bio.skills.length > 0){
 	}
 }
 
+displayWork();
+project.display();
 
-//Work Append
-for(j in work.jobs){
-	$("#workExperience").append(HTMLworkStart);
-	var employer = HTMLworkEmployer.replace("%data%",work.jobs[j].employer);
-	var title = HTMLworkTitle.replace("%data%",work.jobs[j].title);
-	var dates = HTMLworkDates.replace("%data%",work.jobs[j].dates);
-	var loc = HTMLworkLocation.replace("%data%",work.jobs[j].city);
-	var desc = HTMLworkDescription.replace("%data%",work.jobs[j].description);
+$("#main").append(internationalizeButton);
 
-
-	var workFinal = employer + title + dates + loc + desc;
-
-	
-
-	$(".work-entry:last").append(workFinal);
-}
